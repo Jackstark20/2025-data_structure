@@ -45,6 +45,9 @@ public:
     bool deserializeTextCodes(const std::wstring& data);
     bool deserializeCodes(const std::wstring& data);
 
+    // 获取根节点
+    HuffmanNode* getRoot() const { return root; }
+
     // 状态检查
     bool isImage() const;
 };
