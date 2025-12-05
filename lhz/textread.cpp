@@ -35,7 +35,7 @@ std::unordered_map<char32_t, size_t> Text_file_read(const std::string& file_path
 
 int main() {
     try {
-        auto result = Text_file_read("test.txt");
+        auto result = Text_file_read("./test.txt");
         for (const auto& pair : result) {
     std::cout << "字符：";
     // 处理可打印字符（直接输出）
