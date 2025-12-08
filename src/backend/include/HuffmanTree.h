@@ -72,3 +72,5 @@ public:
     // 状态检查
     bool isImage() const;
 };
+
+std::wstring encodeImage(const std::vector<BYTE>& data, const std::unordered_map<BYTE, std::wstring>& codeMap);

@@ -9,23 +9,45 @@
 #include <fstream>
 #include <stdexcept> 
 //流式读取text文件并统计频率
+// 替换原有Text_file_read函数的全部内容
 std::unordered_map<char32_t, size_t> Text_file_read(const std::string& file_path)
 {
-    std::unordered_map<char32_t, size_t> char_map;  // 变量名避免与std::map重名
+    std::unordered_map<char32_t, size_t> char_map;
 
-    // 1. 打开文件：二进制模式避免换行符转换
-    std::wifstream file(file_path, std::ios::binary);
+    // 1. 以二进制模式打开文件（避免换行符转换）
+    std::ifstream file(file_path, std::ios::binary);
     if (!file.is_open()) {
         throw std::runtime_error("无法打开文件：" + file_path);
     }
 
-    // 2. 配置UTF-8编码转换
-    typedef std::codecvt_utf8<char32_t, 0x10FFFF, std::consume_header> utf8_convert;
-    file.imbue(std::locale(file.getloc(), new utf8_convert));
+    // 2. 读取文件全部内容到string（UTF-8格式）
+    std::string utf8_str((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
+    file.close();
 
-    // 3. 读取字符（修复类型不匹配问题）
-    char32_t ch;  
-    while (file.get(reinterpret_cast<wchar_t&>(ch))) {  // 类型转换适配wifstream
+    // 3. 手动将UTF-8字符串转char32_t（避开locale）
+    size_t i = 0;
+    while (i < utf8_str.size()) {
+        char32_t ch = 0;
+        unsigned char c = (unsigned char)utf8_str[i];
+
+        // UTF-8解码规则（兼容单/多字节字符）
+        if (c < 0x80) { // 单字节（ASCII）
+            ch = c;
+            i++;
+        } else if (c < 0xE0) { // 双字节
+            ch = ((c & 0x1F) << 6) | (utf8_str[i+1] & 0x3F);
+            i += 2;
+        } else if (c < 0xF0) { // 三字节
+            ch = ((c & 0x0F) << 12) | ((utf8_str[i+1] & 0x3F) << 6) | (utf8_str[i+2] & 0x3F);
+            i += 3;
+        } else if (c < 0xF8) { // 四字节
+            ch = ((c & 0x07) << 18) | ((utf8_str[i+1] & 0x3F) << 12) | ((utf8_str[i+2] & 0x3F) << 6) | (utf8_str[i+3] & 0x3F);
+            i += 4;
+        } else { // 无效UTF-8，跳过
+            i++;
+            continue;
+        }
+
         // 统计可见字符、换行、制表符
         if (ch >= 0x20 || ch == '\n' || ch == '\t') {
             char_map[ch]++;
