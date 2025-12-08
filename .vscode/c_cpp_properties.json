@@ -4,7 +4,7 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/**",
-                "${workspaceFolder}/**/backend/include",
+                "${workspaceFolder}/src/backend/include",
                 "F:/Msys2/mingw64/lib/gcc/x86_64-w64-mingw32/15.2.0/include",
                 "F:/Msys2/mingw64/include"
             ],

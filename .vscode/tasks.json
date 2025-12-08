@@ -1,0 +1,33 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "编译哈夫曼后端",  // 任务名称（自定义）
+            "type": "cppbuild",
+            "command": "F://Msys2//mingw64//bin//g++.exe",  // 你的g++路径（需替换为实际路径）
+            "args": [
+                "-fdiagnostics-color=always",  // 彩色编译日志
+                "-g",  // 生成调试信息
+                // 1. 所有需要编译的源文件（main.cpp + 后端源文件）
+                "${workspaceFolder}/src/backend/src/main.cpp",
+                "${workspaceFolder}/src/backend/src/HuffmanNode.cpp",
+                "${workspaceFolder}/src/backend/src/HuffmanTree.cpp",
+                // 2. 指定头文件搜索路径（关键：告诉编译器去哪里找HuffmanTree.h）
+                "-I",
+                "${workspaceFolder}/src/backend/include",
+                // 3. 指定输出可执行文件的路径和名称
+                "-o",
+                "${workspaceFolder}/src/backend/bin/test.exe"  // 输出到backend/bin目录（需先创建bin文件夹）
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"  // 编译时的工作目录（项目根目录）
+            },
+            "problemMatcher": ["$gcc"],  // 匹配gcc的错误提示
+            "group": {
+                "kind": "build",
+                "isDefault": true  // 设置为默认编译任务
+            },
+            "detail": "编译器: F://Msys2//mingw64//bin//g++.exe"  // 编译器描述（对应command路径）
+        }
+    ]
+}

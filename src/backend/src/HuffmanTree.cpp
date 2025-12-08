@@ -1,5 +1,59 @@
 #include "HuffmanTree.h"
 #include <algorithm>
+#include <stdio.h>
+#include <unordered_map>
+#include <cstdint>
+#include <iostream>
+#include <codecvt>
+#include <locale>
+#include <fstream>
+#include <stdexcept> 
+//流式读取text文件并统计频率
+std::unordered_map<char32_t, size_t> Text_file_read(const std::string& file_path)
+{
+    std::unordered_map<char32_t, size_t> char_map;  // 变量名避免与std::map重名
+
+    // 1. 打开文件：二进制模式避免换行符转换
+    std::wifstream file(file_path, std::ios::binary);
+    if (!file.is_open()) {
+        throw std::runtime_error("无法打开文件：" + file_path);
+    }
+
+    // 2. 配置UTF-8编码转换
+    typedef std::codecvt_utf8<char32_t, 0x10FFFF, std::consume_header> utf8_convert;
+    file.imbue(std::locale(file.getloc(), new utf8_convert));
+
+    // 3. 读取字符（修复类型不匹配问题）
+    char32_t ch;  
+    while (file.get(reinterpret_cast<wchar_t&>(ch))) {  // 类型转换适配wifstream
+        // 统计可见字符、换行、制表符
+        if (ch >= 0x20 || ch == '\n' || ch == '\t') {
+            char_map[ch]++;
+        }
+    }
+
+    return char_map;
+}
+//图片字节频率统计
+vector<pair<BYTE, int>> getByteFrequencySorted(const vector<BYTE>& data) {
+    unordered_map<BYTE, int> freqMap;
+    for (BYTE b : data) {
+        freqMap[b]++;
+    }
+
+    vector<pair<BYTE, int>> freqVec(freqMap.begin(), freqMap.end());
+
+    sort(freqVec.begin(), freqVec.end(), 
+        [](const pair<BYTE, int>& a, const pair<BYTE, int>& b) {
+            if (a.second != b.second) {
+                return a.second < b.second;
+            } else {
+                return a.first < b.first;
+            }
+        });
+
+    return freqVec;
+}
 
 // 构造函数和析构函数
 HuffmanTree::HuffmanTree() : root(nullptr), isImageTree(false) {}
@@ -235,7 +289,7 @@ std::wstring HuffmanTree::encodeText(const std::wstring& text, const std::unorde
 }
 
 // 新增：编码图片字节数据
-std::wstring encodeImage(const vector<BYTE>& data, const unordered_map<BYTE, wstring>& codeMap) {
+std::wstring encodeImage(const std::vector<BYTE>& data, const std::unordered_map<BYTE, std::wstring>& codeMap) {
     wstring encoded;
     for (BYTE b : data) {
         auto it = codeMap.find(b);
