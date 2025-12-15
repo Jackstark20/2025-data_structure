@@ -1,0 +1,26 @@
+
+# Consider dependencies only in project.
+set(CMAKE_DEPENDS_IN_PROJECT_ONLY OFF)
+
+# The set of languages for which implicit dependencies are needed:
+set(CMAKE_DEPENDS_LANGUAGES
+  )
+
+# The set of dependency files which are needed:
+set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "C:/Users/77955/Desktop/挑战课题-课程内设计数据结构/src/backend/src/HuffmanNode.cpp" "CMakeFiles/backend.dir/src/HuffmanNode.cpp.obj" "gcc" "CMakeFiles/backend.dir/src/HuffmanNode.cpp.obj.d"
+  "C:/Users/77955/Desktop/挑战课题-课程内设计数据结构/src/backend/src/HuffmanTree.cpp" "CMakeFiles/backend.dir/src/HuffmanTree.cpp.obj" "gcc" "CMakeFiles/backend.dir/src/HuffmanTree.cpp.obj.d"
+  "C:/Users/77955/Desktop/挑战课题-课程内设计数据结构/src/backend/src/backend_api.cpp" "CMakeFiles/backend.dir/src/backend_api.cpp.obj" "gcc" "CMakeFiles/backend.dir/src/backend_api.cpp.obj.d"
+  "C:/Users/77955/Desktop/挑战课题-课程内设计数据结构/src/backend/src/main.cpp" "CMakeFiles/backend.dir/src/main.cpp.obj" "gcc" "CMakeFiles/backend.dir/src/main.cpp.obj.d"
+  )
+
+# Targets to which this target links which contain Fortran sources.
+set(CMAKE_Fortran_TARGET_LINKED_INFO_FILES
+  )
+
+# Targets to which this target links which contain Fortran sources.
+set(CMAKE_Fortran_TARGET_FORWARD_LINKED_INFO_FILES
+  )
+
+# Fortran module output directory.
+set(CMAKE_Fortran_TARGET_MODULE_DIR "")

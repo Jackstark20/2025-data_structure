@@ -1,0 +1,3 @@
+C:/Users/77955/Desktop/data_stucture/src/backend/build/CMakeFiles/backend.dir
+C:/Users/77955/Desktop/data_stucture/src/backend/build/CMakeFiles/edit_cache.dir
+C:/Users/77955/Desktop/data_stucture/src/backend/build/CMakeFiles/rebuild_cache.dir

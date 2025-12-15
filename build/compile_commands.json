@@ -1,0 +1,26 @@
+[
+{
+  "directory": "C:/Users/77955/Desktop/挑战课题-课程内设计数据结构/build",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe  @CMakeFiles/backend.dir/includes_CXX.rsp -g -std=gnu++17 -o CMakeFiles\\backend.dir\\src\\HuffmanNode.cpp.obj -c C:\\Users\\77955\\Desktop\\挑战课题-课程内设计数据结构\\src\\backend\\src\\HuffmanNode.cpp",
+  "file": "C:/Users/77955/Desktop/挑战课题-课程内设计数据结构/src/backend/src/HuffmanNode.cpp",
+  "output": "CMakeFiles/backend.dir/src/HuffmanNode.cpp.obj"
+},
+{
+  "directory": "C:/Users/77955/Desktop/挑战课题-课程内设计数据结构/build",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe  @CMakeFiles/backend.dir/includes_CXX.rsp -g -std=gnu++17 -o CMakeFiles\\backend.dir\\src\\HuffmanTree.cpp.obj -c C:\\Users\\77955\\Desktop\\挑战课题-课程内设计数据结构\\src\\backend\\src\\HuffmanTree.cpp",
+  "file": "C:/Users/77955/Desktop/挑战课题-课程内设计数据结构/src/backend/src/HuffmanTree.cpp",
+  "output": "CMakeFiles/backend.dir/src/HuffmanTree.cpp.obj"
+},
+{
+  "directory": "C:/Users/77955/Desktop/挑战课题-课程内设计数据结构/build",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe  @CMakeFiles/backend.dir/includes_CXX.rsp -g -std=gnu++17 -o CMakeFiles\\backend.dir\\src\\backend_api.cpp.obj -c C:\\Users\\77955\\Desktop\\挑战课题-课程内设计数据结构\\src\\backend\\src\\backend_api.cpp",
+  "file": "C:/Users/77955/Desktop/挑战课题-课程内设计数据结构/src/backend/src/backend_api.cpp",
+  "output": "CMakeFiles/backend.dir/src/backend_api.cpp.obj"
+},
+{
+  "directory": "C:/Users/77955/Desktop/挑战课题-课程内设计数据结构/build",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe  @CMakeFiles/backend.dir/includes_CXX.rsp -g -std=gnu++17 -o CMakeFiles\\backend.dir\\src\\main.cpp.obj -c C:\\Users\\77955\\Desktop\\挑战课题-课程内设计数据结构\\src\\backend\\src\\main.cpp",
+  "file": "C:/Users/77955/Desktop/挑战课题-课程内设计数据结构/src/backend/src/main.cpp",
+  "output": "CMakeFiles/backend.dir/src/main.cpp.obj"
+}
+]
