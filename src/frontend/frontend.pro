@@ -1,4 +1,11 @@
-# 项目类型：Qt Widgets应用程序
+# 声明Qt依赖的模块（根据你的前端功能选）
+QT       += core gui widgets charts
+INCLUDEPATH += $$PWD/../backend/include
+LIBS += $$PWD/../backend/bin/libbackend.a
+
+# 项目名称（生成的可执行文件会叫这个名字）
+TARGET = HuffmanFrontend
+# 项目类型是可执行程序
 TEMPLATE = app
 TARGET = HuffmanFrontend  # 生成的exe文件名
 QT += core gui widgets charts  # 依赖的Qt模块（核心+界面+图表）

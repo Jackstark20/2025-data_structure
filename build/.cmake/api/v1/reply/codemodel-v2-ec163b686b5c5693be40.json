@@ -1,0 +1,60 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.10"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "backend",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "backend::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-backend-Debug-4279239beecf0d41310f.json",
+					"name" : "backend",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/77955/Desktop/\u6311\u6218\u8bfe\u9898-\u8bfe\u7a0b\u5185\u8bbe\u8ba1\u6570\u636e\u7ed3\u6784/build",
+		"source" : "C:/Users/77955/Desktop/\u6311\u6218\u8bfe\u9898-\u8bfe\u7a0b\u5185\u8bbe\u8ba1\u6570\u636e\u7ed3\u6784/src/backend"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 7
+	}
+}

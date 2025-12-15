@@ -1,0 +1,2 @@
+C:\msys64\mingw64\bin\ar.exe qc C:\Users\77955\Desktop\挑战课题-课程内设计数据结构\src\backend\bin\libbackend.a CMakeFiles/backend.dir/src/HuffmanNode.cpp.obj CMakeFiles/backend.dir/src/HuffmanTree.cpp.obj CMakeFiles/backend.dir/src/backend_api.cpp.obj CMakeFiles/backend.dir/src/main.cpp.obj
+C:\msys64\mingw64\bin\ranlib.exe C:\Users\77955\Desktop\挑战课题-课程内设计数据结构\src\backend\bin\libbackend.a
