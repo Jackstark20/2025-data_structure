@@ -5,18 +5,15 @@
 #include <QtCharts>
 #include <vector>
 #include <unordered_map>
-#include "src/backend/HuffmanTree.h" // 引用后端头文件
+#include "HuffmanTree.h"  // 后端头文件（已配置路径）
 
-QT_BEGIN_NAMESPACE
-namespace Ui { class ChartWidget; }
-QT_END_NAMESPACE
-
+// 不需要UI类，直接纯代码构建界面
 class ChartWidget : public QWidget {
     Q_OBJECT
 
 public:
     ChartWidget(QWidget *parent = nullptr);
-    ~ChartWidget();
+    ~ChartWidget() override;
 
     // 更新词频图表（文本模式）
     void updateTextFrequency(const std::unordered_map<char32_t, size_t>& freqMap);
@@ -24,13 +21,15 @@ public:
     void updateByteFrequency(const std::vector<std::pair<BYTE, int>>& freqVec);
 
 private:
-    Ui::ChartWidget *ui;
+    // 移除UI指针，直接定义控件成员
     QChart *m_chart;
     QBarSeries *m_series;
     QBarCategoryAxis *m_axisX;
     QValueAxis *m_axisY;
+    QVBoxLayout *m_mainLayout;  // 布局控件
 
     // 清除现有图表数据
     void clearChart();
 };
+
 #endif // CHARTWIDGET_H

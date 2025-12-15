@@ -1,0 +1,10 @@
+debug/chartwidget.o
+debug/mainwindow.o
+debug/main.o
+debug/treenodeitem.o
+debug/treevisualizer.o
+debug/HuffmanNode.o
+debug/HuffmanTree.o
+debug/moc_chartwidget.o
+debug/moc_mainwindow.o
+debug/moc_treevisualizer.o

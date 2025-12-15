@@ -2,7 +2,7 @@
 #define TREENODEITEM_H
 
 #include <QGraphicsItem>
-#include "src/backend/HuffmanNode.h"
+#include "HuffmanNode.h"
 
 class TreeNodeItem : public QGraphicsItem {
 public:
@@ -15,6 +15,8 @@ public:
     HuffmanNode* getNode() const { return m_node; }
     void setLeftChild(TreeNodeItem *child);
     void setRightChild(TreeNodeItem *child);
+    TreeNodeItem* getLeftChild() const { return m_leftChild; }
+    TreeNodeItem* getRightChild() const { return m_rightChild; }
 
 private:
     HuffmanNode *m_node;

@@ -1,6 +1,7 @@
 #include "treenodeitem.h"
 #include <QPainter>
 #include <QFontMetrics>
+#include "EncodingUtils.h"
 
 TreeNodeItem::TreeNodeItem(HuffmanNode *node, QGraphicsItem *parent)
     : QGraphicsItem(parent), m_node(node), m_leftChild(nullptr), m_rightChild(nullptr) {
@@ -18,9 +19,11 @@ TreeNodeItem::TreeNodeItem(HuffmanNode *node, QGraphicsItem *parent)
 TreeNodeItem::~TreeNodeItem() {}
 
 QRectF TreeNodeItem::boundingRect() const {
-    QFontMetrics fm(QFont());
+    // 修复QFontMetrics使用错误：显式创建QFont对象
+    QFont font;
+    QFontMetrics fm(font);
     QRect textRect = fm.boundingRect(m_displayText);
-    return textRect.adjusted(-10, -10, 10, 10); // 边距
+    return textRect.adjusted(-10, -10, 10, 10);  // 10px边距（避免文本截断）
 }
 
 void TreeNodeItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {

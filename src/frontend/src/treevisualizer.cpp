@@ -60,10 +60,11 @@ void TreeVisualizer::layoutTree(TreeNodeItem *root, int x, int y, int levelSpaci
 }
 
 void TreeVisualizer::buildFromHuffmanTree(HuffmanTree *tree) {
-    m_scene->clear();
+    m_scene->clear();  // 清空场景（避免重复绘制）
     TreeNodeItem *rootItem = buildNode(tree->getRoot());
     if (rootItem) {
-        layoutTree(rootItem, width()/2, 50); // 从中心顶部开始布局
-        fitInView(m_scene->sceneRect(), Qt::KeepAspectRatio);
+        // 从窗口中心顶部开始布局（适配不同窗口大小）
+        layoutTree(rootItem, width()/2, 50, 100, 80);
+        fitInView(m_scene->sceneRect(), Qt::KeepAspectRatio);  // 适配视图
     }
 }

@@ -4,7 +4,7 @@
 #include <QGraphicsView>
 #include <QGraphicsScene>
 #include "treenodeitem.h"
-#include "src/backend/HuffmanTree.h"
+#include "HuffmanTree.h"
 
 class TreeVisualizer : public QGraphicsView {
     Q_OBJECT

@@ -1,0 +1,10 @@
+release/chartwidget.o
+release/mainwindow.o
+release/main.o
+release/treenodeitem.o
+release/treevisualizer.o
+release/HuffmanNode.o
+release/HuffmanTree.o
+release/moc_chartwidget.o
+release/moc_mainwindow.o
+release/moc_treevisualizer.o
