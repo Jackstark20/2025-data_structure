@@ -8,30 +8,6 @@
 
 #include "../include/mainwindow.h"
 #include <QtGui/qtextcursor.h>
-#include <QtGui/qscreen.h>
-#include <QtCharts/qlineseries.h>
-#include <QtCharts/qabstractbarseries.h>
-#include <QtCharts/qvbarmodelmapper.h>
-#include <QtCharts/qboxplotseries.h>
-#include <QtCharts/qcandlestickseries.h>
-#include <QtCore/qabstractitemmodel.h>
-#include <QtCharts/qpieseries.h>
-#include <QtCore/qabstractitemmodel.h>
-#include <QtCharts/qboxplotseries.h>
-#include <QtCore/qabstractitemmodel.h>
-#include <QtCharts/qpieseries.h>
-#include <QtCharts/qpieseries.h>
-#include <QtCore/qabstractitemmodel.h>
-#include <QtCharts/qxyseries.h>
-#include <QtCharts/qxyseries.h>
-#include <QtCore/qabstractitemmodel.h>
-#include <QtCore/qabstractitemmodel.h>
-#include <QtCharts/qboxplotseries.h>
-#include <QtCore/qabstractitemmodel.h>
-#include <QtCharts/qpieseries.h>
-#include <QtCore/qabstractitemmodel.h>
-#include <QtCharts/qxyseries.h>
-#include <QtCore/qabstractitemmodel.h>
 #include <QtCore/qmetatype.h>
 
 #include <QtCore/qtmochelpers.h>
@@ -64,16 +40,31 @@ template <> constexpr inline auto MainWindow::qt_create_metaobjectdata<qt_meta_t
     namespace QMC = QtMocConstants;
     QtMocHelpers::StringRefStorage qt_stringData {
         "MainWindow",
-        "on_selectFileBtn_clicked",
+        "onEncodeTextClicked",
         "",
-        "on_processBtn_clicked"
+        "onBrowseTextFileClicked",
+        "onEncodeTextFileClicked",
+        "onExportTextHufClicked",
+        "onBrowseImageClicked",
+        "onEncodeImageClicked",
+        "onExportImageHufClicked"
     };
 
     QtMocHelpers::UintData qt_methods {
-        // Slot 'on_selectFileBtn_clicked'
+        // Slot 'onEncodeTextClicked'
         QtMocHelpers::SlotData<void()>(1, 2, QMC::AccessPrivate, QMetaType::Void),
-        // Slot 'on_processBtn_clicked'
+        // Slot 'onBrowseTextFileClicked'
         QtMocHelpers::SlotData<void()>(3, 2, QMC::AccessPrivate, QMetaType::Void),
+        // Slot 'onEncodeTextFileClicked'
+        QtMocHelpers::SlotData<void()>(4, 2, QMC::AccessPrivate, QMetaType::Void),
+        // Slot 'onExportTextHufClicked'
+        QtMocHelpers::SlotData<void()>(5, 2, QMC::AccessPrivate, QMetaType::Void),
+        // Slot 'onBrowseImageClicked'
+        QtMocHelpers::SlotData<void()>(6, 2, QMC::AccessPrivate, QMetaType::Void),
+        // Slot 'onEncodeImageClicked'
+        QtMocHelpers::SlotData<void()>(7, 2, QMC::AccessPrivate, QMetaType::Void),
+        // Slot 'onExportImageHufClicked'
+        QtMocHelpers::SlotData<void()>(8, 2, QMC::AccessPrivate, QMetaType::Void),
     };
     QtMocHelpers::UintData qt_properties {
     };
@@ -97,8 +88,13 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
     auto *_t = static_cast<MainWindow *>(_o);
     if (_c == QMetaObject::InvokeMetaMethod) {
         switch (_id) {
-        case 0: _t->on_selectFileBtn_clicked(); break;
-        case 1: _t->on_processBtn_clicked(); break;
+        case 0: _t->onEncodeTextClicked(); break;
+        case 1: _t->onBrowseTextFileClicked(); break;
+        case 2: _t->onEncodeTextFileClicked(); break;
+        case 3: _t->onExportTextHufClicked(); break;
+        case 4: _t->onBrowseImageClicked(); break;
+        case 5: _t->onEncodeImageClicked(); break;
+        case 6: _t->onExportImageHufClicked(); break;
         default: ;
         }
     }
@@ -124,14 +120,14 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 2)
+        if (_id < 7)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 2;
+        _id -= 7;
     }
     if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 2)
+        if (_id < 7)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 2;
+        _id -= 7;
     }
     return _id;
 }

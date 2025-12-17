@@ -2,37 +2,84 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QTextEdit>
 #include <QPushButton>
 #include <QLineEdit>
+#include <QLabel>
+#include <QGroupBox>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
-#include <QLabel>
-#include "chartwidget.h"  // 前端图表控件
-#include "HuffmanTree.h"  // 后端头文件
+#include <QFileDialog>
+#include <QPixmap>
+#include <QImage>
+#include <QPlainTextEdit>
+#include <QMessageBox>
+#include <QByteArray>
+#include <QBuffer>
 
-// 不需要UI类，纯代码构建主窗口
-class MainWindow : public QMainWindow {
+// 包含后端API头文件
+#include "../backend/include/backend_api.h"
+
+class MainWindow : public QMainWindow
+{
     Q_OBJECT
 
 public:
     MainWindow(QWidget *parent = nullptr);
-    ~MainWindow() override;
+    ~MainWindow();
 
 private slots:
-    void on_selectFileBtn_clicked();
-    void on_processBtn_clicked();
+    // 文本编码相关槽函数
+    void onEncodeTextClicked();
+    void onBrowseTextFileClicked();
+    void onEncodeTextFileClicked();
+    void onExportTextHufClicked();
+    
+    // 图片编码相关槽函数
+    void onBrowseImageClicked();
+    void onEncodeImageClicked();
+    void onExportImageHufClicked();
 
 private:
-    // 直接定义窗口控件成员
-    QWidget *m_centralWidget;    // 中心容器
-    QVBoxLayout *m_mainLayout;   // 主布局
-    QHBoxLayout *m_btnLayout;    // 按钮布局
-    QLineEdit *m_filePathEdit;   // 文件路径输入框
-    QPushButton *m_selectFileBtn;// 选择文件按钮
-    QPushButton *m_processBtn;   // 处理文件按钮
-    ChartWidget *m_chartWidget;  // 图表控件
-
-    std::string m_selectedFilePath;  // 选中的文件路径
+    // 初始化UI组件
+    void initUI();
+    
+    // 文本编码部分UI组件
+    QGroupBox *textGroupBox;
+    QLabel *textInputLabel;
+    QTextEdit *textInputEdit;
+    QPushButton *encodeTextButton;
+    
+    QLabel *textFileLabel;
+    QLineEdit *textFilePathEdit;
+    QPushButton *browseTextFileButton;
+    QPushButton *encodeTextFileButton;
+    
+    QLabel *textResultLabel;
+    QPlainTextEdit *textResultEdit;
+    QPushButton *exportTextHufButton;
+    
+    // 图片编码部分UI组件
+    QGroupBox *imageGroupBox;
+    QLabel *imagePathLabel;
+    QLineEdit *imagePathEdit;
+    QPushButton *browseImageButton;
+    QPushButton *encodeImageButton;
+    
+    QLabel *imagePreviewLabel;
+    QLabel *imageResultLabel;
+    QPlainTextEdit *imageResultEdit;
+    QPushButton *exportImageHufButton;
+    
+    // 存储当前处理的数据
+    std::string currentEncodedText;
+    std::string currentEncodedImage;
+    QPixmap currentImage;
+    QString currentImagePath;
+    
+    // 预留扩展接口
+    virtual void onAdvancedFeatureClicked();
+    virtual void onSettingsClicked();
 };
 
 #endif // MAINWINDOW_H

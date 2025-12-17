@@ -1,39 +1,28 @@
-# 声明Qt依赖的模块（根据你的前端功能选）
-QT       += core gui widgets charts
-INCLUDEPATH += $$PWD/../backend/include
-LIBS += $$PWD/../backend/bin/libbackend.a
-
-# 项目名称（生成的可执行文件会叫这个名字）
-TARGET = HuffmanFrontend
-# 项目类型是可执行程序
+# 项目类型：Qt Widgets应用程序
 TEMPLATE = app
 TARGET = HuffmanFrontend  # 生成的exe文件名
 QT += core gui widgets charts  # 依赖的Qt模块（核心+界面+图表）
 
-# 源文件路径（前端src + 后端src）
+# 源文件路径（仅前端src）
 SOURCES += \
-    src/chartwidget.cpp \
     src/mainwindow.cpp \
-    src/main.cpp \
-    src/treenodeitem.cpp \
-    src/treevisualizer.cpp \
-    ../backend/src/HuffmanNode.cpp \
-    ../backend/src/HuffmanTree.cpp 
+    src/main.cpp 
 
 # 头文件路径（前端include + 后端include）
 HEADERS += \
-    include/chartwidget.h \
     include/mainwindow.h \
-    include/treenodeitem.h \
-    include/treevisualizer.h \
-    ../backend/include/EncodingUtils.h \
-    ../backend/include/HuffmanNode.h \
-    ../backend/include/HuffmanTree.h 
+    ../backend/include/backend_api.h 
 
 # 头文件搜索路径（告诉编译器去哪里找头文件，避免路径错误）
 INCLUDEPATH += \
     $$PWD/include \
     $$PWD/../backend/include 
 
+# 库文件搜索路径
+LIBS += -L$$PWD/../backend -lbackend
+
 # 编译选项（支持C++17，兼容后端代码）
 QMAKE_CXXFLAGS += -std=c++17 -Wall  # -Wall显示警告信息（便于调试）
+
+# 确保QT_CORE_LIB宏被定义，这样后端的Qt适配函数才能被编译
+DEFINES += QT_CORE_LIB

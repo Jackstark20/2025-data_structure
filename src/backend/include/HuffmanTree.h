@@ -1,11 +1,16 @@
 #pragma once
-#include "HuffmanNode.h"
+// 在HuffmanTree.h顶部调整为
+#include <iostream>
+#include <fstream>
+#include <ios>
 #include <unordered_map>
 #include <vector>
 #include <sstream>
-#include <string>        
-#include <cstdint>       
-#include <windows.h> 
+#include <string>
+#include <cstdint>
+#include <windows.h>
+
+#include "HuffmanNode.h"
 
 
 using namespace std;
