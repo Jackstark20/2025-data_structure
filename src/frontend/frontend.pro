@@ -3,22 +3,26 @@ TEMPLATE = app
 TARGET = HuffmanFrontend  # 生成的exe文件名
 QT += core gui widgets charts  # 依赖的Qt模块（核心+界面+图表）
 
-# 源文件路径（仅前端src）
+# 源文件路径（前端src目录下的所有源文件）
 SOURCES += \
+    src/main.cpp \
     src/mainwindow.cpp \
-    src/main.cpp 
+    src/textencodedecodewindow.cpp \
+    src/imageencodedecodewindow.cpp
 
-# 头文件路径（前端include + 后端include）
+# 头文件路径（前端include目录下的所有头文件）
 HEADERS += \
     include/mainwindow.h \
-    ../backend/include/backend_api.h 
+    include/textencodedecodewindow.h \
+    include/imageencodedecodewindow.h \
+    ../backend/include/backend_api.h
 
-# 头文件搜索路径（告诉编译器去哪里找头文件，避免路径错误）
+# 头文件搜索路径（告诉编译器去哪里找头文件）
 INCLUDEPATH += \
     $$PWD/include \
-    $$PWD/../backend/include 
+    $$PWD/../backend/include
 
-# 库文件搜索路径
+# 库文件搜索路径和连接配置
 LIBS += -L$$PWD/../backend -lbackend
 
 # 编译选项（支持C++17，兼容后端代码）
