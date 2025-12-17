@@ -1,0 +1,5 @@
+mingw32-make -f Makefile.Release
+mingw32-make[1]: Entering directory 'C:/Users/77955/Desktop/data_stucture/src/frontend'
+mingw32-make[1]: *** No rule to make target 'C:/ProgramData/anaconda3/Library/lib/libQt5Charts_conda.a', needed by 'release/HuffmanFrontend.exe'.  Stop.
+mingw32-make[1]: Leaving directory 'C:/Users/77955/Desktop/data_stucture/src/frontend'
+mingw32-make: *** [Makefile:45: release] Error 2
