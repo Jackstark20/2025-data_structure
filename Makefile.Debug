@@ -340,7 +340,7 @@ debug/moc_huffmanwidget.cpp: huffmanwidget.h \
 		../../../../Qt/6.10.1/mingw_64/include/QtCore/QSharedPointer \
 		debug/moc_predefs.h \
 		../../../../Qt/6.10.1/mingw_64/bin/moc.exe
-	'C:\Qt\6.10.1\mingw_64\bin\moc.exe' $(DEFINES) --include C:/Users/77955/Desktop/挑战课题-课程内设计数据结构/debug/moc_predefs.h -IC:/Qt/6.10.1/mingw_64/mkspecs/win32-g++ -IC:/Users/77955/Desktop/挑战课题-课程内设计数据结构 -IC:/Qt/6.10.1/mingw_64/include -IC:/Qt/6.10.1/mingw_64/include/QtWidgets -IC:/Qt/6.10.1/mingw_64/include/QtGui -IC:/Qt/6.10.1/mingw_64/include/QtCore -IC:/msys64/mingw64/include/c++/14.2.0 -IC:/msys64/mingw64/include/c++/14.2.0/x86_64-w64-mingw32 -IC:/msys64/mingw64/include/c++/14.2.0/backward -IC:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include -IC:/msys64/mingw64/include -IC:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include-fixed -I/mingw64/include huffmanwidget.h -o debug/moc_huffmanwidget.cpp
+	'C:\Qt\6.10.1\mingw_64\bin\moc.exe' $(DEFINES) --include C:/Users/77955/Desktop/data_stucture/debug/moc_predefs.h -IC:/Qt/6.10.1/mingw_64/mkspecs/win32-g++ -IC:/Users/77955/Desktop/data_stucture -IC:/Qt/6.10.1/mingw_64/include -IC:/Qt/6.10.1/mingw_64/include/QtWidgets -IC:/Qt/6.10.1/mingw_64/include/QtGui -IC:/Qt/6.10.1/mingw_64/include/QtCore -IC:/msys64/mingw64/include/c++/14.2.0 -IC:/msys64/mingw64/include/c++/14.2.0/x86_64-w64-mingw32 -IC:/msys64/mingw64/include/c++/14.2.0/backward -IC:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include -IC:/msys64/mingw64/include -IC:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include-fixed -I/mingw64/include huffmanwidget.h -o debug/moc_huffmanwidget.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
