@@ -42,7 +42,7 @@ public:
     void buildForImage(const std::vector<std::pair<BYTE, int>>& freqVec);
 
     // 1. 获取序列化后的编码表（宽字符版）
-    std::wstring getSerializedCodeTable() const { return m_codeTableW; }
+    std::wstring getSerializedCodeTable() const { return serializeCodes(); }
     
     // 2. 获取图片编码后的二进制位流
     const std::vector<uint8_t>& getImageBits() const { return m_imageBits; }

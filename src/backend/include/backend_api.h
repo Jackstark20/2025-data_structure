@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <cstdint>
+#include <functional>
 #include "EncodingUtils.h"
 
 // 外部友好薄封装（UTF-8 / Qt 适配）
@@ -20,6 +21,13 @@ std::string encodeImage(const std::vector<uint8_t> &image_data);
 
 // 从 encodeImage 返回的字符串解码并返回原始图片数据（若失败返回空向量）
 std::vector<uint8_t> decodeImage(const std::string &encoded_combined);
+
+// 流式读取文本文件并统计字符频率，支持实时回调更新
+// callback: 每读取一定数量字符后调用的回调函数，参数为当前字符频率统计结果（字符 -> 出现次数）
+// batch_size: 每读取多少字符触发一次回调（默认1000）
+void streamTextFile(const std::string &file_path, 
+                   const std::function<void(const std::unordered_map<char32_t, size_t> &)> &callback, 
+                   size_t batch_size = 1000);
 
 #ifdef QT_CORE_LIB
 #include <QString>

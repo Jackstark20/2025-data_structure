@@ -8,14 +8,16 @@ SOURCES += \
     src/main.cpp \
     src/mainwindow.cpp \
     src/textencodedecodewindow.cpp \
-    src/imageencodedecodewindow.cpp
+    src/imageencodedecodewindow.cpp \
+    src/characterfrequencychart.cpp
 
 # 头文件路径（前端include目录下的所有头文件）
 HEADERS += \
     include/mainwindow.h \
     include/textencodedecodewindow.h \
     include/imageencodedecodewindow.h \
-    ../backend/include/backend_api.h
+    ../backend/include/backend_api.h \
+    include/characterfrequencychart.h
 
 # 头文件搜索路径（告诉编译器去哪里找头文件）
 INCLUDEPATH += \
