@@ -9,8 +9,6 @@
 #include <QGroupBox>
 #include <QPlainTextEdit>
 #include <QFile>
-#include <QTimer>
-#include "characterfrequencychart.h"
 
 class TextEncodeDecodeWindow : public QMainWindow {
     Q_OBJECT
@@ -30,9 +28,6 @@ private slots:
     void onBrowseEncodedFileClicked();
     void onDecodeTextClicked();
     void onSaveDecodedTextClicked();
-
-    void readFileChunk();
-    void encodeAccumulatedContent();
 
 private:
     void initUI();
@@ -57,16 +52,4 @@ private:
     
     // 当前编码结果
     std::string currentEncodedText;
-
-    // 添加图表组件
-    CharacterFrequencyChart *m_frequencyChart;
-    
-    // 字符频率映射
-    QMap<QChar, int> m_characterFrequency;
-    
-    // 读取文件时的临时数据
-    QFile m_currentFile;
-    QTimer m_readTimer;
-    int m_readChunkSize; // 每次读取的字符数
-    QByteArray m_accumulatedContent; // 累积文件内容
 };
