@@ -47,7 +47,13 @@ template <> constexpr inline auto TextEncodeDecodeWindow::qt_create_metaobjectda
         "onExportTextHufClicked",
         "onBrowseEncodedFileClicked",
         "onDecodeTextClicked",
-        "onSaveDecodedTextClicked"
+        "onSaveDecodedTextClicked",
+        "onHuffmanStep",
+        "onHuffmanPlayPause",
+        "onHuffmanReset",
+        "onHuffmanZoomChanged",
+        "value",
+        "autoplayHuffmanStep"
     };
 
     QtMocHelpers::UintData qt_methods {
@@ -65,6 +71,18 @@ template <> constexpr inline auto TextEncodeDecodeWindow::qt_create_metaobjectda
         QtMocHelpers::SlotData<void()>(7, 2, QMC::AccessPrivate, QMetaType::Void),
         // Slot 'onSaveDecodedTextClicked'
         QtMocHelpers::SlotData<void()>(8, 2, QMC::AccessPrivate, QMetaType::Void),
+        // Slot 'onHuffmanStep'
+        QtMocHelpers::SlotData<void()>(9, 2, QMC::AccessPrivate, QMetaType::Void),
+        // Slot 'onHuffmanPlayPause'
+        QtMocHelpers::SlotData<void()>(10, 2, QMC::AccessPrivate, QMetaType::Void),
+        // Slot 'onHuffmanReset'
+        QtMocHelpers::SlotData<void()>(11, 2, QMC::AccessPrivate, QMetaType::Void),
+        // Slot 'onHuffmanZoomChanged'
+        QtMocHelpers::SlotData<void(int)>(12, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { QMetaType::Int, 13 },
+        }}),
+        // Slot 'autoplayHuffmanStep'
+        QtMocHelpers::SlotData<void()>(14, 2, QMC::AccessPrivate, QMetaType::Void),
     };
     QtMocHelpers::UintData qt_properties {
     };
@@ -95,10 +113,14 @@ void TextEncodeDecodeWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _
         case 4: _t->onBrowseEncodedFileClicked(); break;
         case 5: _t->onDecodeTextClicked(); break;
         case 6: _t->onSaveDecodedTextClicked(); break;
+        case 7: _t->onHuffmanStep(); break;
+        case 8: _t->onHuffmanPlayPause(); break;
+        case 9: _t->onHuffmanReset(); break;
+        case 10: _t->onHuffmanZoomChanged((*reinterpret_cast<std::add_pointer_t<int>>(_a[1]))); break;
+        case 11: _t->autoplayHuffmanStep(); break;
         default: ;
         }
     }
-    (void)_a;
 }
 
 const QMetaObject *TextEncodeDecodeWindow::metaObject() const
@@ -120,14 +142,14 @@ int TextEncodeDecodeWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 7)
+        if (_id < 12)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 7;
+        _id -= 12;
     }
     if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 7)
+        if (_id < 12)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 7;
+        _id -= 12;
     }
     return _id;
 }

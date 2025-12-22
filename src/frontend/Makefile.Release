@@ -574,6 +574,25 @@ release/moc_textencodedecodewindow.cpp: include/textencodedecodewindow.h \
 		D:/Qt/6.10.1/mingw_64/include/QtCore/QFile \
 		D:/Qt/6.10.1/mingw_64/include/QtCore/qfile.h \
 		D:/Qt/6.10.1/mingw_64/include/QtCore/qfiledevice.h \
+		D:/Qt/6.10.1/mingw_64/include/QtWidgets/QGraphicsView \
+		D:/Qt/6.10.1/mingw_64/include/QtWidgets/qgraphicsview.h \
+		D:/Qt/6.10.1/mingw_64/include/QtGui/qpainter.h \
+		D:/Qt/6.10.1/mingw_64/include/QtWidgets/qscrollarea.h \
+		D:/Qt/6.10.1/mingw_64/include/QtWidgets/qgraphicsscene.h \
+		D:/Qt/6.10.1/mingw_64/include/QtWidgets/QGraphicsScene \
+		D:/Qt/6.10.1/mingw_64/include/QtWidgets/QGraphicsItem \
+		D:/Qt/6.10.1/mingw_64/include/QtWidgets/qgraphicsitem.h \
+		D:/Qt/6.10.1/mingw_64/include/QtGui/qpainterpath.h \
+		D:/Qt/6.10.1/mingw_64/include/QtCore/QAbstractAnimation \
+		D:/Qt/6.10.1/mingw_64/include/QtCore/qabstractanimation.h \
+		D:/Qt/6.10.1/mingw_64/include/QtWidgets/QSlider \
+		D:/Qt/6.10.1/mingw_64/include/QtWidgets/qslider.h \
+		D:/Qt/6.10.1/mingw_64/include/QtWidgets/qabstractslider.h \
+		D:/Qt/6.10.1/mingw_64/include/QtCore/QTimer \
+		D:/Qt/6.10.1/mingw_64/include/QtCore/qtimer.h \
+		D:/Qt/6.10.1/mingw_64/include/QtCore/QMap \
+		D:/Qt/6.10.1/mingw_64/include/QtCore/QPair \
+		D:/Qt/6.10.1/mingw_64/include/QtCore/QSharedPointer \
 		release/moc_predefs.h \
 		D:/Qt/6.10.1/mingw_64/bin/moc.exe
 	'D:\Qt\6.10.1\mingw_64\bin\moc.exe' $(DEFINES) --include D:/mycode/Huffman/2025-data_structure/src/frontend/release/moc_predefs.h -ID:/Qt/6.10.1/mingw_64/mkspecs/win32-g++ -ID:/mycode/Huffman/2025-data_structure/src/frontend -ID:/mycode/Huffman/2025-data_structure/src/frontend/include -ID:/mycode/Huffman/2025-data_structure/src/backend/include -ID:/Qt/6.10.1/mingw_64/include -ID:/Qt/6.10.1/mingw_64/include/QtCharts -ID:/Qt/6.10.1/mingw_64/include/QtOpenGLWidgets -ID:/Qt/6.10.1/mingw_64/include/QtWidgets -ID:/Qt/6.10.1/mingw_64/include/QtOpenGL -ID:/Qt/6.10.1/mingw_64/include/QtGui -ID:/Qt/6.10.1/mingw_64/include/QtCore -IC:/msys64/mingw64/include/c++/14.2.0 -IC:/msys64/mingw64/include/c++/14.2.0/x86_64-w64-mingw32 -IC:/msys64/mingw64/include/c++/14.2.0/backward -IC:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include -IC:/msys64/mingw64/include -IC:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/14.2.0/include-fixed -I/mingw64/include include/textencodedecodewindow.h -o release/moc_textencodedecodewindow.cpp
@@ -1288,6 +1307,25 @@ release/mainwindow.o: src/mainwindow.cpp include/mainwindow.h \
 		D:/Qt/6.10.1/mingw_64/include/QtCore/QFile \
 		D:/Qt/6.10.1/mingw_64/include/QtCore/qfile.h \
 		D:/Qt/6.10.1/mingw_64/include/QtCore/qfiledevice.h \
+		D:/Qt/6.10.1/mingw_64/include/QtWidgets/QGraphicsView \
+		D:/Qt/6.10.1/mingw_64/include/QtWidgets/qgraphicsview.h \
+		D:/Qt/6.10.1/mingw_64/include/QtGui/qpainter.h \
+		D:/Qt/6.10.1/mingw_64/include/QtWidgets/qscrollarea.h \
+		D:/Qt/6.10.1/mingw_64/include/QtWidgets/qgraphicsscene.h \
+		D:/Qt/6.10.1/mingw_64/include/QtWidgets/QGraphicsScene \
+		D:/Qt/6.10.1/mingw_64/include/QtWidgets/QGraphicsItem \
+		D:/Qt/6.10.1/mingw_64/include/QtWidgets/qgraphicsitem.h \
+		D:/Qt/6.10.1/mingw_64/include/QtGui/qpainterpath.h \
+		D:/Qt/6.10.1/mingw_64/include/QtCore/QAbstractAnimation \
+		D:/Qt/6.10.1/mingw_64/include/QtCore/qabstractanimation.h \
+		D:/Qt/6.10.1/mingw_64/include/QtWidgets/QSlider \
+		D:/Qt/6.10.1/mingw_64/include/QtWidgets/qslider.h \
+		D:/Qt/6.10.1/mingw_64/include/QtWidgets/qabstractslider.h \
+		D:/Qt/6.10.1/mingw_64/include/QtCore/QTimer \
+		D:/Qt/6.10.1/mingw_64/include/QtCore/qtimer.h \
+		D:/Qt/6.10.1/mingw_64/include/QtCore/QMap \
+		D:/Qt/6.10.1/mingw_64/include/QtCore/QPair \
+		D:/Qt/6.10.1/mingw_64/include/QtCore/QSharedPointer \
 		include/imageencodedecodewindow.h \
 		D:/Qt/6.10.1/mingw_64/include/QtGui/QPixmap \
 		D:/Qt/6.10.1/mingw_64/include/QtWidgets/QMessageBox \
@@ -1532,6 +1570,25 @@ release/textencodedecodewindow.o: src/textencodedecodewindow.cpp include/textenc
 		D:/Qt/6.10.1/mingw_64/include/QtCore/QFile \
 		D:/Qt/6.10.1/mingw_64/include/QtCore/qfile.h \
 		D:/Qt/6.10.1/mingw_64/include/QtCore/qfiledevice.h \
+		D:/Qt/6.10.1/mingw_64/include/QtWidgets/QGraphicsView \
+		D:/Qt/6.10.1/mingw_64/include/QtWidgets/qgraphicsview.h \
+		D:/Qt/6.10.1/mingw_64/include/QtGui/qpainter.h \
+		D:/Qt/6.10.1/mingw_64/include/QtWidgets/qscrollarea.h \
+		D:/Qt/6.10.1/mingw_64/include/QtWidgets/qgraphicsscene.h \
+		D:/Qt/6.10.1/mingw_64/include/QtWidgets/QGraphicsScene \
+		D:/Qt/6.10.1/mingw_64/include/QtWidgets/QGraphicsItem \
+		D:/Qt/6.10.1/mingw_64/include/QtWidgets/qgraphicsitem.h \
+		D:/Qt/6.10.1/mingw_64/include/QtGui/qpainterpath.h \
+		D:/Qt/6.10.1/mingw_64/include/QtCore/QAbstractAnimation \
+		D:/Qt/6.10.1/mingw_64/include/QtCore/qabstractanimation.h \
+		D:/Qt/6.10.1/mingw_64/include/QtWidgets/QSlider \
+		D:/Qt/6.10.1/mingw_64/include/QtWidgets/qslider.h \
+		D:/Qt/6.10.1/mingw_64/include/QtWidgets/qabstractslider.h \
+		D:/Qt/6.10.1/mingw_64/include/QtCore/QTimer \
+		D:/Qt/6.10.1/mingw_64/include/QtCore/qtimer.h \
+		D:/Qt/6.10.1/mingw_64/include/QtCore/QMap \
+		D:/Qt/6.10.1/mingw_64/include/QtCore/QPair \
+		D:/Qt/6.10.1/mingw_64/include/QtCore/QSharedPointer \
 		D:/Qt/6.10.1/mingw_64/include/QtWidgets/QFileDialog \
 		D:/Qt/6.10.1/mingw_64/include/QtWidgets/qfiledialog.h \
 		D:/Qt/6.10.1/mingw_64/include/QtCore/qdir.h \
@@ -1546,6 +1603,16 @@ release/textencodedecodewindow.o: src/textencodedecodewindow.cpp include/textenc
 		D:/Qt/6.10.1/mingw_64/include/QtWidgets/qdialogbuttonbox.h \
 		D:/Qt/6.10.1/mingw_64/include/QtCore/QBuffer \
 		D:/Qt/6.10.1/mingw_64/include/QtCore/qbuffer.h \
+		D:/Qt/6.10.1/mingw_64/include/QtGui/QPainterPath \
+		D:/Qt/6.10.1/mingw_64/include/QtWidgets/QGraphicsPathItem \
+		D:/Qt/6.10.1/mingw_64/include/QtGui/QPolygonF \
+		D:/Qt/6.10.1/mingw_64/include/QtCore/QParallelAnimationGroup \
+		D:/Qt/6.10.1/mingw_64/include/QtCore/qparallelanimationgroup.h \
+		D:/Qt/6.10.1/mingw_64/include/QtCore/qanimationgroup.h \
+		D:/Qt/6.10.1/mingw_64/include/QtCore/QVariantAnimation \
+		D:/Qt/6.10.1/mingw_64/include/QtCore/qvariantanimation.h \
+		D:/Qt/6.10.1/mingw_64/include/QtCore/qeasingcurve.h \
+		D:/Qt/6.10.1/mingw_64/include/QtGui/QWheelEvent \
 		../backend/include/backend_api.h \
 		../backend/include/EncodingUtils.h \
 		D:/Qt/6.10.1/mingw_64/include/QtCore/QString \
