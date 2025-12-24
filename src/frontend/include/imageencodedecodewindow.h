@@ -15,6 +15,7 @@ class ImageEncodeDecodeWindow : public QMainWindow {
 public:
     ImageEncodeDecodeWindow(QWidget *parent = nullptr);
     ~ImageEncodeDecodeWindow();
+    void applyStyles(); // 修复：添加缺少的分号
 
 private slots:
     // 编码相关

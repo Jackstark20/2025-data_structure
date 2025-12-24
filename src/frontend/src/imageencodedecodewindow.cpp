@@ -14,7 +14,8 @@ ImageEncodeDecodeWindow::~ImageEncodeDecodeWindow() {
 
 void ImageEncodeDecodeWindow::initUI() {
     setWindowTitle("图片编码解码");
-    setGeometry(100, 100, 1600, 900);  // 增大窗口尺寸
+    setGeometry(100, 100, 1600, 900);
+    setMinimumSize(1200, 700);  // 设置最小窗口尺寸，实现自适应窗口
     
     // 创建主布局
     QWidget *centralWidget = new QWidget(this);
@@ -32,7 +33,7 @@ void ImageEncodeDecodeWindow::initUI() {
     QVBoxLayout *encodeLayout = new QVBoxLayout(encodeGroupBox);
     encodeLayout->setSpacing(10);
     
-    // 图片浏览区域
+    // 图片浏览区域（调整为更紧凑的布局）
     QLabel *imagePathLabel = new QLabel("选择图片文件：");
     QHBoxLayout *imagePathLayout = new QHBoxLayout();
     imagePathEdit = new QLineEdit();
@@ -46,27 +47,26 @@ void ImageEncodeDecodeWindow::initUI() {
     imagePathLayout->addWidget(browseImageButton);
     imagePathLayout->addWidget(encodeImageButton);
     
-    // 图片预览区域
+    // 图片预览区域（放大，使用stretch因子）
     imagePreviewLabel = new QLabel("图片预览：");
     imagePreviewLabel->setAlignment(Qt::AlignCenter);
-    imagePreviewLabel->setMinimumHeight(300);
-    imagePreviewLabel->setStyleSheet("border: 1px solid #ccc; background-color: #f0f0f0;");
+    imagePreviewLabel->setStyleSheet("border: 1px solid #ccc; background-color: #f5f5f5;");
     
-    // 图片编码结果区域
+    // 图片编码结果区域（缩小，减少高度）
     QLabel *imageResultLabel = new QLabel("编码结果摘要：");
     encodeResultEdit = new QPlainTextEdit();
     encodeResultEdit->setReadOnly(true);
-    encodeResultEdit->setMinimumHeight(120);
+    encodeResultEdit->setMinimumHeight(80);  // 缩小编码结果摘要区域
     
     exportImageHufButton = new QPushButton("导出为.phuf文件");
     connect(exportImageHufButton, &QPushButton::clicked, this, &ImageEncodeDecodeWindow::onExportImageHufClicked);
     
-    // 将图片编码部分的组件添加到布局
+    // 将图片编码部分的组件添加到布局，使用stretch因子控制大小
     encodeLayout->addWidget(imagePathLabel);
     encodeLayout->addLayout(imagePathLayout);
-    encodeLayout->addWidget(imagePreviewLabel);
+    encodeLayout->addWidget(imagePreviewLabel, 3);  // 放大预览区域（stretch=3）
     encodeLayout->addWidget(imageResultLabel);
-    encodeLayout->addWidget(encodeResultEdit);
+    encodeLayout->addWidget(encodeResultEdit, 1);   // 缩小编码结果区域（stretch=1）
     encodeLayout->addWidget(exportImageHufButton);
     
     // ==================== 解码部分 ====================
@@ -74,7 +74,7 @@ void ImageEncodeDecodeWindow::initUI() {
     QVBoxLayout *decodeLayout = new QVBoxLayout(decodeGroupBox);
     decodeLayout->setSpacing(10);
     
-    // 编码文件浏览区域
+    // 编码文件浏览区域（缩小，更紧凑的布局）
     QLabel *phufPathLabel = new QLabel("选择.phuf文件：");
     QHBoxLayout *phufPathLayout = new QHBoxLayout();
     phufFilePathEdit = new QLineEdit();
@@ -88,20 +88,19 @@ void ImageEncodeDecodeWindow::initUI() {
     phufPathLayout->addWidget(browsePhufFileButton);
     phufPathLayout->addWidget(decodeImageButton);
     
-    // 解码图片预览区域
+    // 解码图片预览区域（放大，使用stretch因子）
     decodedImageLabel = new QLabel("解码图片预览：");
     decodedImageLabel->setAlignment(Qt::AlignCenter);
-    decodedImageLabel->setMinimumHeight(300);
-    decodedImageLabel->setStyleSheet("border: 1px solid #ccc; background-color: #f0f0f0;");
+    decodedImageLabel->setStyleSheet("border: 1px solid #ccc; background-color: #f5f5f5;");
     
     // 保存解码图片按钮
     saveDecodedImageButton = new QPushButton("保存解码图片");
     connect(saveDecodedImageButton, &QPushButton::clicked, this, &ImageEncodeDecodeWindow::onSaveDecodedImageClicked);
     
-    // 将图片解码部分的组件添加到布局
+    // 将图片解码部分的组件添加到布局，使用stretch因子控制大小
     decodeLayout->addWidget(phufPathLabel);
-    decodeLayout->addLayout(phufPathLayout);
-    decodeLayout->addWidget(decodedImageLabel);
+    decodeLayout->addLayout(phufPathLayout);  // 浏览区域往上放
+    decodeLayout->addWidget(decodedImageLabel, 3);  // 放大预览区域（stretch=3）
     decodeLayout->addWidget(saveDecodedImageButton);
     
     // 将编码和解码部分添加到水平布局
@@ -110,6 +109,71 @@ void ImageEncodeDecodeWindow::initUI() {
     
     // 将水平布局添加到主布局
     mainLayout->addLayout(encodeDecodeLayout);
+    
+    // 添加美化样式
+    applyStyles();
+}
+
+// 添加美化样式的函数
+void ImageEncodeDecodeWindow::applyStyles() {
+    // 设置GroupBox样式
+    QString groupBoxStyle = "QGroupBox {"
+        "border: 2px solid #4CAF50;"
+        "border-radius: 8px;"
+        "margin-top: 10px;"
+        "padding: 10px;"
+        "font-weight: bold;"
+        "font-size: 14px;"
+    "}"
+    "QGroupBox::title {"
+        "subcontrol-origin: margin;"
+        "left: 10px;"
+        "padding: 0 5px 0 5px;"
+    "}";
+    encodeGroupBox->setStyleSheet(groupBoxStyle);
+    decodeGroupBox->setStyleSheet(groupBoxStyle);
+    
+    // 设置按钮样式
+    QString buttonStyle = "QPushButton {"
+        "background-color: #4CAF50;"
+        "color: white;"
+        "border: none;"
+        "padding: 8px 16px;"
+        "border-radius: 4px;"
+        "font-size: 13px;"
+    "}"
+    "QPushButton:hover {"
+        "background-color: #45a049;"
+    "}"
+    "QPushButton:pressed {"
+        "background-color: #3e8e41;"
+    "}";
+    browseImageButton->setStyleSheet(buttonStyle);
+    encodeImageButton->setStyleSheet(buttonStyle);
+    exportImageHufButton->setStyleSheet(buttonStyle);
+    browsePhufFileButton->setStyleSheet(buttonStyle);
+    decodeImageButton->setStyleSheet(buttonStyle);
+    saveDecodedImageButton->setStyleSheet(buttonStyle);
+    
+    // 设置输入框样式
+    QString lineEditStyle = "QLineEdit {"
+        "padding: 6px;"
+        "border: 1px solid #ccc;"
+        "border-radius: 4px;"
+        "font-size: 13px;"
+    "}";
+    imagePathEdit->setStyleSheet(lineEditStyle);
+    phufFilePathEdit->setStyleSheet(lineEditStyle);
+    
+    // 设置文本编辑区域样式
+    QString textEditStyle = "QPlainTextEdit {"
+        "padding: 6px;"
+        "border: 1px solid #ccc;"
+        "border-radius: 4px;"
+        "font-size: 13px;"
+        "background-color: #f9f9f9;"
+    "}";
+    encodeResultEdit->setStyleSheet(textEditStyle);
 }
 
 // 编码相关槽函数实现
@@ -178,7 +242,7 @@ void ImageEncodeDecodeWindow::onExportImageHufClicked() {
     }
 
     QFile file(filePath);
-    if (!file.open(QIODevice::WriteOnly)) { // 移除QIODevice::Text
+    if (!file.open(QIODevice::WriteOnly)) {
         QMessageBox::warning(this, "警告", "无法创建文件！");
         return;
     }
@@ -206,7 +270,7 @@ void ImageEncodeDecodeWindow::onDecodeImageClicked() {
     }
     
     QFile file(filePath);
-    if (!file.open(QIODevice::ReadOnly)) { // 移除QIODevice::Text
+    if (!file.open(QIODevice::ReadOnly)) {
         QMessageBox::warning(this, "警告", "无法打开文件！");
         return;
     }
