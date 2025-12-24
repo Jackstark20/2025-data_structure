@@ -219,12 +219,43 @@ void ImageEncodeDecodeWindow::onEncodeImageClicked() {
     }
     
     currentEncodedImage = encoded;
-    encodeResultEdit->setPlainText(QString("图片编码成功！") +
-                                 QString("图片路径：") + currentImagePath + "\n" +
-                                 QString("图片大小：") + QString::number(currentImage.width()) + "x" + QString::number(currentImage.height()) + "\n" +
-                                 QString("原始数据大小：") + QString::number(imageBytes.size()) + " 字节\n" +
-                                 QString("编码后大小：") + QString::number(encoded.size()) + " 字符\n" +
-                                 QString("压缩率：") + QString::number((double)encoded.size() / imageBytes.size() * 100, 'f', 2) + "%");
+    // 计算压缩率
+    double originalSize = imageBytes.size();
+    
+    // 分离编码表和实际编码数据（查找最后一个|字符作为分隔符）
+    size_t separatorPos = encoded.rfind('|');
+    double encodedSize = encoded.size();
+    double tableSize = 0;
+    double bitStringSize = 0;
+    double actualEncodedByteSize = 0;
+    
+    if (separatorPos != std::string::npos) {
+        tableSize = separatorPos + 1; // 包括分隔符本身
+        bitStringSize = encodedSize - tableSize;
+        // 关键修改：将字符数转换为实际二进制位占用的字节数
+        // 每个字符代表一个二进制位，所以字节数是字符数除以8
+        actualEncodedByteSize = bitStringSize / 8;
+    }
+    
+    // 只使用实际编码数据的大小来计算压缩率
+    double compressionRatio = (1 - actualEncodedByteSize / originalSize) * 100;
+
+    QString resultText = QString("图片编码成功！") +
+                     QString("图片路径：") + currentImagePath + "\n" +
+                     QString("图片大小：") + QString::number(currentImage.width()) + "x" + QString::number(currentImage.height()) + "\n" +
+                     QString("原始数据大小：") + QString::number(originalSize) + " 字节\n" +
+                     QString("编码后总大小：") + QString::number(encodedSize) + " 字符\n" +
+                     QString("其中编码表大小：") + QString::number(tableSize) + " 字符\n" +
+                     QString("实际编码数据（字符串）：") + QString::number(bitStringSize) + " 字符\n" +
+                     QString("实际编码数据（二进制）：") + QString::number(actualEncodedByteSize) + " 字节\n";
+
+    if (compressionRatio > 0) {
+        resultText += QString("压缩率（仅数据）：") + QString::number(compressionRatio, 'f', 2) + "%";
+    } else {
+        resultText += QString("膨胀率（仅数据）：") + QString::number(-compressionRatio, 'f', 2) + "%";
+    }
+
+    encodeResultEdit->setPlainText(resultText);
 
     QMessageBox::information(this, "提示", "图片编码成功！");
 }

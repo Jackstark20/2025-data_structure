@@ -12,11 +12,12 @@
 
 #include "HuffmanNode.h"
 
+// 移除 using namespace std; 语句
 
-using namespace std;
 std::unordered_map<char32_t, size_t> Text_file_read(const std::string& file_path);//text文件流式读取并统计频率
-vector<pair<BYTE, int>> getByteFrequencySorted(const vector<BYTE>& data);//图片字节频率统计
+std::vector<std::pair<BYTE, int>> getByteFrequencySorted(const std::vector<BYTE>& data);//图片字节频率统计
 std::wstring encodeImage(const std::vector<BYTE>& data, const std::unordered_map<BYTE, std::wstring>& codeMap);
+
 class HuffmanTree {
 private:
     HuffmanNode* root;

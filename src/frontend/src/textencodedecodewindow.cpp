@@ -264,6 +264,42 @@ if (!encodedData.empty()) {
     encodeResultEdit->setPlainText(QString::fromStdString(encodedData));
     currentEncodedText = encodedData;
     
+    // 计算压缩率
+    double originalSize = text.toUtf8().size();
+    
+    // 分离编码表和实际编码数据（查找最后一个|字符作为分隔符）
+    size_t separatorPos = encodedData.rfind('|');
+    double encodedSize = encodedData.size();
+    double tableSize = 0;
+    double bitStringSize = 0;
+    double actualEncodedByteSize = 0;
+    
+    if (separatorPos != std::string::npos) {
+        tableSize = separatorPos + 1; // 包括分隔符本身
+        bitStringSize = encodedSize - tableSize;
+        // 关键修改：将字符数转换为实际二进制位占用的字节数
+        // 每个字符代表一个二进制位，所以字节数是字符数除以8
+        actualEncodedByteSize = bitStringSize / 8;
+    }
+    
+    // 只使用实际编码数据的大小来计算压缩率
+    double compressionRatio = (1 - actualEncodedByteSize / originalSize) * 100;
+
+    QString resultText = QString("文本编码成功！") +
+                     QString("原始数据大小：") + QString::number(originalSize) + " 字节\n" +
+                     QString("编码后总大小：") + QString::number(encodedSize) + " 字符\n" +
+                     QString("其中编码表大小：") + QString::number(tableSize) + " 字符\n" +
+                     QString("实际编码数据（字符串）：") + QString::number(bitStringSize) + " 字符\n" +
+                     QString("实际编码数据（二进制）：") + QString::number(actualEncodedByteSize) + " 字节\n";
+
+    if (compressionRatio > 0) {
+        resultText += QString("压缩率（仅数据）：") + QString::number(compressionRatio, 'f', 2) + "%";
+    } else {
+        resultText += QString("膨胀率（仅数据）：") + QString::number(-compressionRatio, 'f', 2) + "%";
+    }
+
+    QMessageBox::information(this, "编码结果", resultText);
+    
     // 生成哈夫曼树可视化
     prepareHuffmanNodes();
 } else {
@@ -310,6 +346,43 @@ void TextEncodeDecodeWindow::onEncodeTextFileClicked() {
 if (!encodedData.empty()) {
     encodeResultEdit->setPlainText(QString::fromStdString(encodedData));
     currentEncodedText = encodedData;
+    
+    // 计算压缩率
+    double originalSize = content.size();
+    
+    // 分离编码表和实际编码数据（查找最后一个|字符作为分隔符）
+    size_t separatorPos = encodedData.rfind('|');
+    double encodedSize = encodedData.size();
+    double tableSize = 0;
+    double bitStringSize = 0;
+    double actualEncodedByteSize = 0;
+    
+    if (separatorPos != std::string::npos) {
+        tableSize = separatorPos + 1; // 包括分隔符本身
+        bitStringSize = encodedSize - tableSize;
+        // 关键修改：将字符数转换为实际二进制位占用的字节数
+        // 每个字符代表一个二进制位，所以字节数是字符数除以8
+        actualEncodedByteSize = bitStringSize / 8;
+    }
+    
+    // 只使用实际编码数据的大小来计算压缩率
+    double compressionRatio = (1 - actualEncodedByteSize / originalSize) * 100;
+
+    QString resultText = QString("文本文件编码成功！") +
+                     QString("文件路径：") + filePath + "\n" +
+                     QString("原始数据大小：") + QString::number(originalSize) + " 字节\n" +
+                     QString("编码后总大小：") + QString::number(encodedSize) + " 字符\n" +
+                     QString("其中编码表大小：") + QString::number(tableSize) + " 字符\n" +
+                     QString("实际编码数据（字符串）：") + QString::number(bitStringSize) + " 字符\n" +
+                     QString("实际编码数据（二进制）：") + QString::number(actualEncodedByteSize) + " 字节\n";
+
+    if (compressionRatio > 0) {
+        resultText += QString("压缩率（仅数据）：") + QString::number(compressionRatio, 'f', 2) + "%";
+    } else {
+        resultText += QString("膨胀率（仅数据）：") + QString::number(-compressionRatio, 'f', 2) + "%";
+    }
+
+    QMessageBox::information(this, "编码结果", resultText);
     
     // 生成哈夫曼树可视化
     prepareHuffmanNodes();

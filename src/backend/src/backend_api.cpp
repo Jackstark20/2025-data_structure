@@ -1,43 +1,50 @@
-#include "backend_api.h"
-#include "HuffmanTree.h"
-#include "EncodingUtils.h"
+// 首先包含标准库头文件，确保类型定义完整
 #include <string>
-#include <ios>
+#include <vector>
+#include <fstream>
+#include <iterator>
 #include <algorithm>
+#include <unordered_map>
+#include <stdexcept>
+#include <ios>
+#include <functional>
+#include <cstdint>
+#include <windows.h>
+
+// 然后包含自定义头文件
+#include "EncodingUtils.h"
+#include "HuffmanTree.h"
+#include "backend_api.h"
 
 namespace backend_api {
 
-std::string encodeTextUtf8(const std::string &utf8_text) {
-    // 转为宽字符串
-    std::wstring wtext = utf8_to_wstring(utf8_text);
-
-    // 统计频率
-    std::unordered_map<wchar_t, int> freqMap;
-    for (wchar_t c : wtext) freqMap[c]++;
-    std::vector<std::pair<wchar_t,int>> freqVec(freqMap.begin(), freqMap.end());
-
-    // 构建哈夫曼树并编码
+::std::string encodeTextUtf8(const ::std::string &utf8_text)
+{
+    ::std::wstring wtext = ::utf8_to_wstring(utf8_text);
+    ::std::unordered_map<wchar_t, int> freqMap;
+    
+    for (wchar_t c : wtext)
+    {
+        freqMap[c]++;
+    }
+    
+    ::std::vector<::std::pair<wchar_t, int>> freqVec(freqMap.begin(), freqMap.end());
     HuffmanTree tree;
     tree.buildForText(freqVec);
     auto codeMap = tree.getCharCodeMap();
-    std::wstring bits = tree.encodeText(wtext, codeMap);
-
-    // 获取序列化编码表
-    std::wstring table = tree.getSerializedCodeTable();
-
-    // 合并为 <table>|<bits>
-    std::wstring combined = table + L"|" + bits;
-    return wstring_to_utf8(combined);
+    ::std::wstring bits = tree.encodeText(wtext, codeMap);
+    ::std::wstring table = tree.getSerializedCodeTable();
+    ::std::wstring combined = table + L"|" + bits;
+    
+    return ::wstring_to_utf8(combined);
 }
 
-std::string decodeTextUtf8(const std::string &encoded_combined) {
-    std::wstring combined = utf8_to_wstring(encoded_combined);
-    
-    // 从后往前查找分隔符，确保编码表部分完整
-    size_t sep = std::wstring::npos;
+::std::string decodeTextUtf8(const ::std::string &encoded_combined) {
+    ::std::wstring combined = ::utf8_to_wstring(encoded_combined);
+
+    size_t sep = ::std::wstring::npos;
     for (size_t i = combined.size() - 1; i > 0; --i) {
         if (combined[i] == L'|') {
-            // 检查后面是否是纯二进制位流
             bool isBits = true;
             for (size_t j = i + 1; j < combined.size(); ++j) {
                 if (combined[j] != L'0' && combined[j] != L'1') {
@@ -51,40 +58,43 @@ std::string decodeTextUtf8(const std::string &encoded_combined) {
             }
         }
     }
-    
-    if (sep == std::wstring::npos) return std::string();
-    std::wstring table = combined.substr(0, sep);
-    std::wstring bits = combined.substr(sep + 1);
 
-    HuffmanTree tree;
-    if (!tree.deserializeCodes(table)) return std::string();
-    std::wstring decoded = tree.decodeText(bits);
-    return wstring_to_utf8(decoded);
+    if (sep == ::std::wstring::npos) return ::std::string();
+    ::std::wstring table = combined.substr(0, sep);      // 错误应消失
+    ::std::wstring bits = combined.substr(sep + 1);      // 错误应消失
+
+    HuffmanTree tree;                                    // 需确保 HuffmanTree 类已定义
+    if (!tree.deserializeCodes(table)) return ::std::string();
+    ::std::wstring decoded = tree.decodeText(bits);
+    return wstring_to_utf8(decoded);                  // 修正函数名拼写
 }
 
-std::string encodeImage(const std::vector<uint8_t> &image_data) {
+::std::string encodeImage(const ::std::vector<uint8_t> &image_data) {
     // 统计频率
-    auto freqVec = getByteFrequencySorted(image_data);
+    // 将uint8_t向量转换为BYTE向量
+    ::std::vector<BYTE> byte_data(image_data.begin(), image_data.end());
+    auto freqVec = ::getByteFrequencySorted(byte_data);
 
     // 构建哈夫曼树并编码
     HuffmanTree tree;
     tree.buildForImage(freqVec);
     auto codeMap = tree.getByteCodeMap();
-    std::wstring bits = ::encodeImage(image_data, codeMap);
+    // 修复函数名冲突，使用不同的函数名
+    ::std::wstring bits = encodeImageData(byte_data, codeMap);
 
     // 获取序列化编码表
-    std::wstring table = tree.getSerializedCodeTable();
+    ::std::wstring table = tree.getSerializedCodeTable();
 
     // 合并为 <table>|<bits>
-    std::wstring combined = table + L"|" + bits;
-    return wstring_to_utf8(combined);
+    ::std::wstring combined = table + L"|" + bits;
+    return ::wstring_to_utf8(combined);
 }
 
-std::vector<uint8_t> decodeImage(const std::string &encoded_combined) {
-    std::wstring combined = utf8_to_wstring(encoded_combined);
+::std::vector<uint8_t> decodeImage(const ::std::string &encoded_combined) {
+    ::std::wstring combined = ::utf8_to_wstring(encoded_combined);
     
     // 从后往前查找分隔符，确保编码表部分完整
-    size_t sep = std::wstring::npos;
+    size_t sep = ::std::wstring::npos;
     for (size_t i = combined.size() - 1; i > 0; --i) {
         if (combined[i] == L'|') {
             // 检查后面是否是纯二进制位流
@@ -102,30 +112,162 @@ std::vector<uint8_t> decodeImage(const std::string &encoded_combined) {
         }
     }
     
-    if (sep == std::wstring::npos) return {};
-    std::wstring table = combined.substr(0, sep);
-    std::wstring bits = combined.substr(sep + 1);
+    if (sep == ::std::wstring::npos) return {};
+    ::std::wstring table = combined.substr(0, sep);
+    ::std::wstring bits = combined.substr(sep + 1);
 
     HuffmanTree tree;
     if (!tree.deserializeCodes(table)) return {};
     return tree.decodeImage(bits);
 }
 
-void streamTextFile(const std::string &file_path, 
-                   const std::function<void(const std::unordered_map<char32_t, size_t> &)> &callback, 
+bool encodeTextFile(const ::std::string &input_file_path, const ::std::string &output_huf_path) {
+    try {
+        // 读取输入文件
+        ::std::ifstream input_file(input_file_path, ::std::ios::binary);
+        if (!input_file.is_open()) {
+            return false;
+        }
+        
+        // 读取整个文件内容
+        ::std::string utf8_text((::std::istreambuf_iterator<char>(input_file)), ::std::istreambuf_iterator<char>());
+        input_file.close();
+        
+        // 编码文本
+        ::std::string encoded_data = encodeTextUtf8(utf8_text);
+        if (encoded_data.empty()) {
+            return false;
+        }
+        
+        // 写入.huf文件
+        ::std::ofstream output_file(output_huf_path, ::std::ios::binary);
+        if (!output_file.is_open()) {
+            return false;
+        }
+        
+        output_file.write(encoded_data.c_str(), encoded_data.size());
+        output_file.close();
+        
+        return true;
+    } catch (...) {
+        return false;
+    }
+}
+
+bool decodeTextFile(const ::std::string &input_huf_path, const ::std::string &output_file_path) {
+    try {
+        // 读取.huf文件
+        ::std::ifstream input_file(input_huf_path, ::std::ios::binary);
+        if (!input_file.is_open()) {
+            return false;
+        }
+        
+        // 读取整个文件内容
+        ::std::string encoded_data((::std::istreambuf_iterator<char>(input_file)), ::std::istreambuf_iterator<char>());
+        input_file.close();
+        
+        // 解码文本
+        ::std::string decoded_text = decodeTextUtf8(encoded_data);
+        if (decoded_text.empty()) {
+            return false;
+        }
+        
+        // 写入输出文件
+        ::std::ofstream output_file(output_file_path, ::std::ios::binary);
+        if (!output_file.is_open()) {
+            return false;
+        }
+        
+        output_file.write(decoded_text.c_str(), decoded_text.size());
+        output_file.close();
+        
+        return true;
+    } catch (...) {
+        return false;
+    }
+}
+
+bool encodeImageFile(const ::std::string &input_image_path, const ::std::string &output_huf_path) {
+    try {
+        // 读取图片文件
+        ::std::ifstream input_file(input_image_path, ::std::ios::binary);
+        if (!input_file.is_open()) {
+            return false;
+        }
+        
+        // 读取整个文件内容
+        ::std::vector<uint8_t> image_data((::std::istreambuf_iterator<char>(input_file)), ::std::istreambuf_iterator<char>());
+        input_file.close();
+        
+        // 编码图片
+        ::std::string encoded_data = encodeImage(image_data);
+        if (encoded_data.empty()) {
+            return false;
+        }
+        
+        // 写入.huf文件
+        ::std::ofstream output_file(output_huf_path, ::std::ios::binary);
+        if (!output_file.is_open()) {
+            return false;
+        }
+        
+        output_file.write(encoded_data.c_str(), encoded_data.size());
+        output_file.close();
+        
+        return true;
+    } catch (...) {
+        return false;
+    }
+}
+
+bool decodeImageFile(const ::std::string &input_huf_path, const ::std::string &output_image_path) {
+    try {
+        // 读取.huf文件
+        ::std::ifstream input_file(input_huf_path, ::std::ios::binary);
+        if (!input_file.is_open()) {
+            return false;
+        }
+        
+        // 读取整个文件内容
+        ::std::string encoded_data((::std::istreambuf_iterator<char>(input_file)), ::std::istreambuf_iterator<char>());
+        input_file.close();
+        
+        // 解码图片
+        ::std::vector<uint8_t> decoded_image = decodeImage(encoded_data);
+        if (decoded_image.empty()) {
+            return false;
+        }
+        
+        // 写入图片文件
+        ::std::ofstream output_file(output_image_path, ::std::ios::binary);
+        if (!output_file.is_open()) {
+            return false;
+        }
+        
+        output_file.write(reinterpret_cast<const char*>(decoded_image.data()), decoded_image.size());
+        output_file.close();
+        
+        return true;
+    } catch (...) {
+        return false;
+    }
+}
+
+void streamTextFile(const ::std::string &file_path, 
+                   const ::std::function<void(const ::std::unordered_map<char32_t, size_t> &)> &callback, 
                    size_t batch_size) {
     // 以二进制模式打开文件
-    std::ifstream file(file_path, std::ios::binary);
+    ::std::ifstream file(file_path, ::std::ios::binary);
     if (!file.is_open()) {
-        throw std::runtime_error("无法打开文件：" + file_path);
+        throw ::std::runtime_error("无法打开文件：" + file_path);
     }
 
     // 读取文件全部内容到string（UTF-8格式）
-    std::string utf8_str((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
+    ::std::string utf8_str((::std::istreambuf_iterator<char>(file)), ::std::istreambuf_iterator<char>());
     file.close();
 
     // 手动将UTF-8字符串转char32_t并统计频率
-    std::unordered_map<char32_t, size_t> char_map;
+    ::std::unordered_map<char32_t, size_t> char_map;
     size_t i = 0;
     size_t processed = 0;
 
@@ -169,30 +311,45 @@ void streamTextFile(const std::string &file_path,
     }
 }
 
-
 #ifdef QT_CORE_LIB
 QString encodeTextQt(const QString &text) {
-    std::string utf8 = text.toUtf8().toStdString();
-    std::string enc = encodeTextUtf8(utf8);
+    ::std::string utf8 = text.toUtf8().toStdString();
+    ::std::string enc = encodeTextUtf8(utf8);
     return QString::fromUtf8(enc.c_str());
 }
 
 QString decodeTextQt(const QString &encoded_combined) {
-    std::string enc = encoded_combined.toUtf8().toStdString();
-    std::string dec = decodeTextUtf8(enc);
+    ::std::string enc = encoded_combined.toUtf8().toStdString();
+    ::std::string dec = decodeTextUtf8(enc);
     return QString::fromUtf8(dec.c_str());
 }
 
 QByteArray encodeImageQt(const QByteArray &image_data) {
-    std::vector<uint8_t> data(image_data.begin(), image_data.end());
-    std::string enc = encodeImage(data);
+    ::std::vector<uint8_t> data(image_data.begin(), image_data.end());
+    ::std::string enc = encodeImage(data);
     return QByteArray::fromStdString(enc);
 }
 
 QByteArray decodeImageQt(const QByteArray &encoded_combined) {
-    std::string enc = encoded_combined.toStdString();
-    std::vector<uint8_t> data = decodeImage(enc);
+    ::std::string enc = encoded_combined.toStdString();
+    ::std::vector<uint8_t> data = decodeImage(enc);
     return QByteArray(reinterpret_cast<const char*>(data.data()), data.size());
+}
+
+bool encodeTextFileQt(const QString &input_file_path, const QString &output_huf_path) {
+    return encodeTextFile(input_file_path.toStdString(), output_huf_path.toStdString());
+}
+
+bool decodeTextFileQt(const QString &input_huf_path, const QString &output_file_path) {
+    return decodeTextFile(input_huf_path.toStdString(), output_file_path.toStdString());
+}
+
+bool encodeImageFileQt(const QString &input_image_path, const QString &output_huf_path) {
+    return encodeImageFile(input_image_path.toStdString(), output_huf_path.toStdString());
+}
+
+bool decodeImageFileQt(const QString &input_huf_path, const QString &output_image_path) {
+    return decodeImageFile(input_huf_path.toStdString(), output_image_path.toStdString());
 }
 
 #endif

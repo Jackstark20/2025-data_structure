@@ -2,6 +2,9 @@
 #include "textencodedecodewindow.h"
 #include "imageencodedecodewindow.h"
 #include <QMessageBox>
+//主窗口实现
+//构建 “哈夫曼编码工具” 的主界面
+//提供文本 / 图片编码解码的功能入口
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent) {

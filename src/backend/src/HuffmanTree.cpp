@@ -57,16 +57,16 @@ std::unordered_map<char32_t, size_t> Text_file_read(const std::string& file_path
     return char_map;
 }
 //图片字节频率统计
-vector<pair<BYTE, int>> getByteFrequencySorted(const vector<BYTE>& data) {
-    unordered_map<BYTE, int> freqMap;
+std::vector<std::pair<BYTE, int>> getByteFrequencySorted(const std::vector<BYTE>& data) {
+    std::unordered_map<BYTE, int> freqMap;
     for (BYTE b : data) {
         freqMap[b]++;
     }
 
-    vector<pair<BYTE, int>> freqVec(freqMap.begin(), freqMap.end());
+    std::vector<std::pair<BYTE, int>> freqVec(freqMap.begin(), freqMap.end());
 
-    sort(freqVec.begin(), freqVec.end(), 
-        [](const pair<BYTE, int>& a, const pair<BYTE, int>& b) {
+    std::sort(freqVec.begin(), freqVec.end(), 
+        [](const std::pair<BYTE, int>& a, const std::pair<BYTE, int>& b) {
             if (a.second != b.second) {
                 return a.second < b.second;
             } else {
@@ -110,7 +110,7 @@ void HuffmanTree::buildForText(const std::vector<std::pair<wchar_t, int>>& freqV
         codeToByte.clear();
         isImageTree = false;
 
-        vector<HuffmanNode*> nodes;
+        std::vector<HuffmanNode*> nodes;
         for (const auto& p : freqVec) {
             HuffmanNode* newNode = new HuffmanNode(p.first, p.second);
             nodes.push_back(newNode);
@@ -119,7 +119,7 @@ void HuffmanTree::buildForText(const std::vector<std::pair<wchar_t, int>>& freqV
         }
 
         while (nodes.size() > 1) {
-            sort(nodes.begin(), nodes.end(), [](HuffmanNode* a, HuffmanNode* b) {
+            std::sort(nodes.begin(), nodes.end(), [](HuffmanNode* a, HuffmanNode* b) {
                 if (a->freq != b->freq) {
                     return a->freq < b->freq;
                 } else {
@@ -150,7 +150,7 @@ void HuffmanTree::buildForText(const std::vector<std::pair<wchar_t, int>>& freqV
 
         for (size_t i = 0; i < leafnodes.size(); ++i) {
             HuffmanNode* current = leafnodes[i];
-            wstring code = L"";
+            std::wstring code = L"";
             while (current->parent != nullptr) {
                 if (current == current->parent->left) {
                     code = L"0" + code;
@@ -178,7 +178,7 @@ void HuffmanTree::buildForImage(const std::vector<std::pair<BYTE, int>>& freqVec
         codeToByte.clear();
         isImageTree = true;
 
-        vector<HuffmanNode*> nodes;
+        std::vector<HuffmanNode*> nodes;
         for (const auto& p : freqVec) {
             HuffmanNode* newNode = new HuffmanNode(p.first, p.second);
             nodes.push_back(newNode);
@@ -217,7 +217,7 @@ void HuffmanTree::buildForImage(const std::vector<std::pair<BYTE, int>>& freqVec
 
         for (size_t i = 0; i < leafnodes.size(); ++i) {
             HuffmanNode* current = leafnodes[i];
-            wstring code = L"";
+            std::wstring code = L"";
             while (current->parent != nullptr) {
                 if (current == current->parent->left) {
                     code = L"0" + code;
@@ -244,8 +244,8 @@ std::unordered_map<BYTE, std::wstring> HuffmanTree::getByteCodeMap() const {
 std::wstring HuffmanTree::decodeText(const std::wstring& code) const {
     if (codeToChar.empty()) return L"";
         
-        wstring result = L"";
-        wstring currentCode;
+        std::wstring result = L"";
+        std::wstring currentCode;
         for (wchar_t bit : code) {
             currentCode += bit;
             auto it = codeToChar.find(currentCode);
@@ -263,8 +263,8 @@ std::wstring HuffmanTree::decodeText(const std::wstring& code) const {
 std::vector<BYTE> HuffmanTree::decodeImage(const std::wstring& code) const {
     if (codeToByte.empty()) return {};
         
-        vector<BYTE> result;
-        wstring currentCode;
+        std::vector<BYTE> result;
+        std::wstring currentCode;
         for (wchar_t bit : code) {
             currentCode += bit;
             auto it = codeToByte.find(currentCode);
@@ -281,8 +281,8 @@ std::vector<BYTE> HuffmanTree::decodeImage(const std::wstring& code) const {
 
 std::vector<BYTE> HuffmanTree::decodeImageFromBits(const uint8_t* bytes, uint64_t bitCount) const {
     if (codeToByte.empty()) return {};
-        vector<BYTE> result;
-        wstring currentCode;
+        std::vector<BYTE> result;
+        std::wstring currentCode;
         for (uint64_t i = 0; i < bitCount; ++i) {
             uint64_t byteIndex = i / 8;
             int bitIndex = 7 - (int)(i % 8);
@@ -312,7 +312,7 @@ std::wstring HuffmanTree::encodeText(const std::wstring& text, const std::unorde
 
 // 新增：编码图片字节数据
 std::wstring encodeImage(const std::vector<BYTE>& data, const std::unordered_map<BYTE, std::wstring>& codeMap) {
-    wstring encoded;
+        std::wstring encoded;
     for (BYTE b : data) {
         auto it = codeMap.find(b);
         if (it != codeMap.end()) {
@@ -327,7 +327,7 @@ std::wstring encodeImage(const std::vector<BYTE>& data, const std::unordered_map
 
 // 序列化方法
 std::wstring HuffmanTree::serializeCodes() const {
-    wstringstream ss;
+        std::wstringstream ss;
         ss << (isImageTree ? L"IMAGE" : L"TEXT") << L"|";  // 标记类型
         
         if (isImageTree) {
@@ -343,7 +343,7 @@ std::wstring HuffmanTree::serializeCodes() const {
 }
 
 std::wstring HuffmanTree::serializeTextCodes() const {
-    wstringstream ss;
+        std::wstringstream ss;
         for (const auto& p : charToCode) {
             ss << (int)p.first << L"|" << p.second << L"|";
         }
@@ -354,8 +354,8 @@ std::wstring HuffmanTree::serializeTextCodes() const {
 bool HuffmanTree::deserializeTextCodes(const std::wstring& data) {
     charToCode.clear();
         codeToChar.clear();
-        wstringstream ss(data);
-        wstring part;
+        std::wstringstream ss(data);
+        std::wstring part;
         while (getline(ss, part, L'|')) {
             if (part.empty()) continue;
             int charCode;
@@ -378,12 +378,12 @@ bool HuffmanTree::deserializeCodes(const std::wstring& data) {
         byteToCode.clear();
         codeToByte.clear();
         
-        wstringstream ss(data);
-        wstring type;
+        std::wstringstream ss(data);
+        std::wstring type;
         if (!getline(ss, type, L'|')) return false;
         
         isImageTree = (type == L"IMAGE");
-        wstring part;
+        std::wstring part;
         
         while (getline(ss, part, L'|')) {
             if (part.empty()) continue;
