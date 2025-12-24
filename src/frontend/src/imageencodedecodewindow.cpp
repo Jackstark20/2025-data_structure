@@ -14,23 +14,27 @@ ImageEncodeDecodeWindow::~ImageEncodeDecodeWindow() {
 
 void ImageEncodeDecodeWindow::initUI() {
     setWindowTitle("图片编码解码");
-    setGeometry(100, 100, 1200, 800);
+    setGeometry(100, 100, 1600, 900);  // 增大窗口尺寸
     
     // 创建主布局
     QWidget *centralWidget = new QWidget(this);
     setCentralWidget(centralWidget);
     QVBoxLayout *mainLayout = new QVBoxLayout(centralWidget);
-    mainLayout->setSpacing(20);
-    mainLayout->setContentsMargins(20, 20, 20, 20);
+    mainLayout->setSpacing(15);
+    mainLayout->setContentsMargins(15, 15, 15, 15);
+    
+    // 创建水平布局用于编码和解码部分
+    QHBoxLayout *encodeDecodeLayout = new QHBoxLayout();
+    encodeDecodeLayout->setSpacing(15);
     
     // ==================== 编码部分 ====================
     encodeGroupBox = new QGroupBox("图片编码");
     QVBoxLayout *encodeLayout = new QVBoxLayout(encodeGroupBox);
-    encodeLayout->setSpacing(15);
+    encodeLayout->setSpacing(10);
     
     // 图片浏览区域
-    QHBoxLayout *imagePathLayout = new QHBoxLayout();
     QLabel *imagePathLabel = new QLabel("选择图片文件：");
+    QHBoxLayout *imagePathLayout = new QHBoxLayout();
     imagePathEdit = new QLineEdit();
     imagePathEdit->setPlaceholderText("图片文件路径");
     browseImageButton = new QPushButton("浏览");
@@ -45,14 +49,14 @@ void ImageEncodeDecodeWindow::initUI() {
     // 图片预览区域
     imagePreviewLabel = new QLabel("图片预览：");
     imagePreviewLabel->setAlignment(Qt::AlignCenter);
-    imagePreviewLabel->setMinimumHeight(250);
+    imagePreviewLabel->setMinimumHeight(300);
     imagePreviewLabel->setStyleSheet("border: 1px solid #ccc; background-color: #f0f0f0;");
     
     // 图片编码结果区域
     QLabel *imageResultLabel = new QLabel("编码结果摘要：");
     encodeResultEdit = new QPlainTextEdit();
     encodeResultEdit->setReadOnly(true);
-    encodeResultEdit->setMinimumHeight(150);
+    encodeResultEdit->setMinimumHeight(120);
     
     exportImageHufButton = new QPushButton("导出为.phuf文件");
     connect(exportImageHufButton, &QPushButton::clicked, this, &ImageEncodeDecodeWindow::onExportImageHufClicked);
@@ -68,11 +72,11 @@ void ImageEncodeDecodeWindow::initUI() {
     // ==================== 解码部分 ====================
     decodeGroupBox = new QGroupBox("图片解码");
     QVBoxLayout *decodeLayout = new QVBoxLayout(decodeGroupBox);
-    decodeLayout->setSpacing(15);
+    decodeLayout->setSpacing(10);
     
     // 编码文件浏览区域
-    QHBoxLayout *phufPathLayout = new QHBoxLayout();
     QLabel *phufPathLabel = new QLabel("选择.phuf文件：");
+    QHBoxLayout *phufPathLayout = new QHBoxLayout();
     phufFilePathEdit = new QLineEdit();
     phufFilePathEdit->setPlaceholderText("phuf文件路径");
     browsePhufFileButton = new QPushButton("浏览");
@@ -87,7 +91,7 @@ void ImageEncodeDecodeWindow::initUI() {
     // 解码图片预览区域
     decodedImageLabel = new QLabel("解码图片预览：");
     decodedImageLabel->setAlignment(Qt::AlignCenter);
-    decodedImageLabel->setMinimumHeight(250);
+    decodedImageLabel->setMinimumHeight(300);
     decodedImageLabel->setStyleSheet("border: 1px solid #ccc; background-color: #f0f0f0;");
     
     // 保存解码图片按钮
@@ -100,9 +104,12 @@ void ImageEncodeDecodeWindow::initUI() {
     decodeLayout->addWidget(decodedImageLabel);
     decodeLayout->addWidget(saveDecodedImageButton);
     
-    // 将编码和解码部分添加到主布局
-    mainLayout->addWidget(encodeGroupBox);
-    mainLayout->addWidget(decodeGroupBox);
+    // 将编码和解码部分添加到水平布局
+    encodeDecodeLayout->addWidget(encodeGroupBox, 1);
+    encodeDecodeLayout->addWidget(decodeGroupBox, 1);
+    
+    // 将水平布局添加到主布局
+    mainLayout->addLayout(encodeDecodeLayout);
 }
 
 // 编码相关槽函数实现

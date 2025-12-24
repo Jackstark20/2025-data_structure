@@ -700,7 +700,9 @@ void TextEncodeDecodeWindow::layoutAndAnimateHuffman(int stepsDone)
     }
     if (totalWidth < 400) totalWidth = 400;
     
-    double left = 50;
+    // 计算场景中心和起始位置，使哈夫曼树居中显示
+    double sceneCenterX = 0;  // 场景的实际中心坐标是0，因为sceneRect设置为(-1000, -1000, 2000, 2000)
+    double left = sceneCenterX - totalWidth / 2;
     double levelHeight = 100.0;
     for (LNode* r : forest) {
         assignPos(r, left, 0, levelHeight);
